@@ -11,6 +11,8 @@
     <modules>
         <module>com.epam.cdp.jmpd3.eventserviceclient</module>
         <module>com.epam.cdp.jmpd3.eventserviceapi</module>
+        <module>com.epam.cdp.jmpd3.eventservicetechtalkimpl</module>
+        <module>com.epam.cdp.jmpd3.eventserviceworkshopimpl</module>
     </modules>
 
     <properties>
