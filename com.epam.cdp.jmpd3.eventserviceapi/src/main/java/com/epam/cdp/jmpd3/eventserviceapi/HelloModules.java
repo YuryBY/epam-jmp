@@ -1,4 +1,4 @@
-package com.epam.cdp.jmpd3.eventserviceclient.eventserviceapi;
+package com.epam.cdp.jmpd3.eventserviceapi;
 
 import com.epam.cdp.jmpd3.eventserviceclient.HiModules;
 
