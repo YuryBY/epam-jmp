@@ -1,4 +1,3 @@
-com\epam\cdp\jmpd3\eventserviceapi\EventService.class
-com\epam\cdp\jmpd3\eventserviceapi\Runner.class
 module-info.class
-com\epam\cdp\jmpd3\eventserviceapi\HelloModules.class
+com\epam\cdp\jmpd3\eventserviceapi\EventService.class
+com\epam\cdp\jmpd3\eventserviceapi\MarkdownService.class

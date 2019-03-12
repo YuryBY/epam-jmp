@@ -1,2 +1,4 @@
-module-info.class
+com\epam\cdp\jmpd3\eventservicetechtalkimpl\TechTalkEventService.class
 com\epam\cdp\jmpd3\eventservicetechtalkimpl\HiModules2.class
+module-info.class
+com\epam\cdp\jmpd3\eventservicetechtalkimpl\WorkshopEventService.class
