@@ -9,10 +9,10 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>com.epam.cdp.jmpd3.eventserviceclient</module>
-        <module>com.epam.cdp.jmpd3.eventserviceapi</module>
-        <module>com.epam.cdp.jmpd3.eventservicetechtalkimpl</module>
-        <module>com.epam.cdp.jmpd3.eventserviceworkshopimpl</module>
+        <module>com.epam.cdp.jmp.eventserviceclient</module>
+        <module>com.epam.cdp.jmp.eventserviceapi</module>
+        <module>com.epam.cdp.jmp.eventservicetechtalkimpl</module>
+        <module>com.epam.cdp.jmp.eventserviceworkshopimpl</module>
     </modules>
 
     <properties>
