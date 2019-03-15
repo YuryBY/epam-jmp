@@ -4,23 +4,55 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.epam.cdp.jmpd3</groupId>
-    <artifactId>task2</artifactId>
+    <groupId>com.epam.cdp.jmpd</groupId>
+    <artifactId>task</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>com.epam.cdp.jmp.eventserviceclient</module>
-        <module>com.epam.cdp.jmp.eventserviceapi</module>
-        <module>com.epam.cdp.jmp.eventservicetechtalkimpl</module>
-        <module>com.epam.cdp.jmp.eventserviceworkshopimpl</module>
+        <module>event-service-api</module>
+        <module>event-service-dto</module>
+        <module>event-service-impl</module>
+        <module>event-service-rest</module>
     </modules>
 
     <properties>
         <maven.version>3.6.0</maven.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <jdk.version>11</jdk.version>
+        <jdk.version>1.8</jdk.version>
+        <lombok.version>1.18.6</lombok.version>
+        <spring.sagger.version>2.9.2</spring.sagger.version>
+        <spring.framework.version>5.1.3.RELEASE</spring.framework.version>
+        <spring.framework.boot.version>2.1.1.RELEASE</spring.framework.boot.version>
     </properties>
+
+    <!--<parent>-->
+    <!--<groupId>org.springframework.boot</groupId>-->
+    <!--<artifactId>spring-boot-starter-parent</artifactId>-->
+    <!--<version>2.0.5.RELEASE</version>-->
+    <!--</parent>-->
+
+    <!--<dependencies>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-web</artifactId>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.projectlombok</groupId>-->
+            <!--<artifactId>lombok</artifactId>-->
+            <!--<version>${lombok.version}</version>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-devtools</artifactId>-->
+            <!--<optional>true</optional>-->
+        <!--</dependency>-->
+    <!--</dependencies>-->
+
+
     <build>
         <pluginManagement>
             <plugins>
