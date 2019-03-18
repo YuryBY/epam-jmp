@@ -1,5 +1,7 @@
 package com.epam.cdp.jmp.eventserviceapi;
 
+import com.epam.cdp.jmp.eventservicedto.Event;
+
 import java.util.List;
 
 public interface EventService {
@@ -11,6 +13,8 @@ public interface EventService {
     Event getEvent(Long id);
 
     void deleteEvent(Long id);
+
+    void deleteAllEvents();
 
     List<Event> getAllEvents();
 
