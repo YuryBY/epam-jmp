@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
@@ -27,7 +28,8 @@ public class Event extends ResourceSupport {
     @Enumerated(EnumType.STRING)
     private EventType eventType;
 
-//    private LocalDateTime dateTime;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime dateTime;
 
     @JsonCreator
     public Event() {
@@ -37,13 +39,13 @@ public class Event extends ResourceSupport {
     public Event(@JsonProperty("title") String title,
                  @JsonProperty("place") String place,
                  @JsonProperty("speaker") String speaker,
-                 @JsonProperty("eventType") EventType eventType){
-//                 @JsonProperty("dateTime") LocalDateTime dateTime) {
+                 @JsonProperty("eventType") EventType eventType,
+                 @JsonProperty("dateTime") LocalDateTime dateTime) {
         this.title = title;
         this.place = place;
         this.speaker = speaker;
         this.eventType = eventType;
-//        this.dateTime = dateTime;
+        this.dateTime = dateTime;
     }
 
 }

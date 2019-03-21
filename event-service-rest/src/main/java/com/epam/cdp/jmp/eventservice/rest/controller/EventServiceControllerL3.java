@@ -28,23 +28,6 @@ public class EventServiceControllerL3 {
         return LocalDateTime.now();
     }
 
-//    @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-//    @ApiOperation(response = Event.class, value = "Create an event")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200, message = "Success", response = Event.class),
-//            @ApiResponse(code = 500, message = "Internal Server Error", response = EventRequestFailure.class)})
-//    public @ResponseBody
-//    ResponseEntity<?> createEvent(@ResponseBody CreateEventRequest createEventRequest) {
-//        List<Event> allEvents = eventService.createEvent(e)
-//        ResponseEntity responseEntity;
-//        if (allEvents != null && !allEvents.isEmpty()) {
-//            responseEntity = ResponseEntity.ok(allEvents);
-//        } else {
-//            responseEntity = ResponseEntity.noContent().build();
-//        }
-//        return responseEntity;
-//    }
-
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(response = List.class, produces = "application/json", value = "Returns a list of events")
     @ApiResponses(value = {
@@ -56,7 +39,7 @@ public class EventServiceControllerL3 {
         List<Event> allEvents = eventService.getAllEvents();
         ResponseEntity responseEntity;
         if (allEvents != null && !allEvents.isEmpty()) {
-            for (Event event:allEvents) {
+            for (Event event : allEvents) {
                 URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(event.getId()).toUri();
                 event.add(new Link(location.toString()));
             }
@@ -75,10 +58,13 @@ public class EventServiceControllerL3 {
             @ApiResponse(code = 500, message = "Internal Server Error")})
     public @ResponseBody
     ResponseEntity<?> getAllEventsByTitle(@ApiParam("Title of the event") @PathVariable(name = "title") String title) {
-//    ResponseEntity<?> getAllEventsByTitle(String title) {
         List<Event> allEvents = eventService.getAllEventsByTitle(title);
         ResponseEntity responseEntity;
         if (allEvents != null && !allEvents.isEmpty()) {
+            for (Event event : allEvents) {
+                URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(event.getId()).toUri();
+                event.add(new Link(location.toString()));
+            }
             responseEntity = ResponseEntity.ok(allEvents);
         } else {
             responseEntity = ResponseEntity.noContent().build();
@@ -97,27 +83,10 @@ public class EventServiceControllerL3 {
         Event event = eventService.getEvent(id);
         ResponseEntity responseEntity;
         if (event != null) {
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(event.getId()).toUri();
+            event.add(new Link(location.toString()));
             responseEntity = ResponseEntity.ok(event);
         } else {
-            responseEntity = ResponseEntity.noContent().build();
-        }
-        return responseEntity;
-    }
-
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
-    @ApiOperation(response = Event.class, produces = "application/json", value = "Deletes an event by its id")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = Event.class),
-            @ApiResponse(code = 204, message = "Not found"),
-            @ApiResponse(code = 500, message = "Internal Server Error")})
-    public @ResponseBody
-        //TODO to improve delete method
-    ResponseEntity<?> deleteEvent(@ApiParam("Id of the event") @PathVariable(name = "id") Long id) {
-        ResponseEntity responseEntity;
-        try {
-            eventService.deleteEvent(id);
-            responseEntity = ResponseEntity.ok(id);
-        } catch (Exception ex){
             responseEntity = ResponseEntity.noContent().build();
         }
         return responseEntity;

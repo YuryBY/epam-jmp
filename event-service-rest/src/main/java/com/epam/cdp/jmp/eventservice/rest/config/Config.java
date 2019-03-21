@@ -1,4 +1,4 @@
-package com.epam.cdp.jmp.eventservice.config;
+package com.epam.cdp.jmp.eventservice.rest.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

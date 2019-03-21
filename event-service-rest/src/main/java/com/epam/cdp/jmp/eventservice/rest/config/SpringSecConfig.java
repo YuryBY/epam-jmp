@@ -1,4 +1,4 @@
-package com.epam.cdp.jmp.eventservice.config;
+package com.epam.cdp.jmp.eventservice.rest.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

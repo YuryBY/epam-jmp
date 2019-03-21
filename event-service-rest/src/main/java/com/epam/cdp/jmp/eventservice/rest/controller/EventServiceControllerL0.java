@@ -10,9 +10,10 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/l0/v1.0/event-service")
@@ -25,17 +26,13 @@ public class EventServiceControllerL0 {
     @Autowired
     private EventService eventService;
 
-    @ModelAttribute
-    LocalDateTime initLocalDate() {
-        return LocalDateTime.now();
-    }
-
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     @ApiOperation(response = Event.class, value = "Create an event")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = Event.class),
             @ApiResponse(code = 200, message = "Internal Server Error", response = EventRequestFailure.class)})
-    public @ResponseBody ResponseEntity<?> createEvent(CreateEventRequest createEventRequest) {
+    public @ResponseBody
+    ResponseEntity<?> createEvent(CreateEventRequest createEventRequest) {
         Event event = eventService.createEvent(createEventRequest.getEvent());
         ResponseEntity responseEntity;
         if (event != null) {
