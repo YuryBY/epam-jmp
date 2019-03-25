@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -19,28 +18,6 @@ import java.util.List;
 public class EventServiceControllerL2 {
     @Autowired
     private EventService eventService;
-
-    @ModelAttribute
-    LocalDateTime initLocalDate() {
-        return LocalDateTime.now();
-    }
-
-//    @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-//    @ApiOperation(response = Event.class, value = "Create an event")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200, message = "Success", response = Event.class),
-//            @ApiResponse(code = 500, message = "Internal Server Error", response = EventRequestFailure.class)})
-//    public @ResponseBody
-//    ResponseEntity<?> createEvent(@ResponseBody CreateEventRequest createEventRequest) {
-//        List<Event> allEvents = eventService.createEvent(e)
-//        ResponseEntity responseEntity;
-//        if (allEvents != null && !allEvents.isEmpty()) {
-//            responseEntity = ResponseEntity.ok(allEvents);
-//        } else {
-//            responseEntity = ResponseEntity.noContent().build();
-//        }
-//        return responseEntity;
-//    }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(response = List.class, produces = "application/json", value = "Returns a list of events")
@@ -104,13 +81,13 @@ public class EventServiceControllerL2 {
             @ApiResponse(code = 204, message = "Not found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
     public @ResponseBody
-    //TODO to improve delete method
+        //TODO to improve delete method
     ResponseEntity<?> deleteEvent(@ApiParam("Id of the event") @PathVariable(name = "id") Long id) {
         ResponseEntity responseEntity;
         try {
             eventService.deleteEvent(id);
             responseEntity = ResponseEntity.ok(id);
-        } catch (Exception ex){
+        } catch (Exception ex) {
             responseEntity = ResponseEntity.noContent().build();
         }
         return responseEntity;

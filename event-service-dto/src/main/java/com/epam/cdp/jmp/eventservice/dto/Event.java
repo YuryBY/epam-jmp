@@ -48,4 +48,15 @@ public class Event extends ResourceSupport {
         this.dateTime = dateTime;
     }
 
+    @Override
+    public String toString() {
+        return "Event{" +
+                "eventId=" + eventId +
+                ", title='" + title + '\'' +
+                ", place='" + place + '\'' +
+                ", speaker='" + speaker + '\'' +
+                ", eventType=" + eventType +
+                ", dateTime=" + dateTime +
+                '}';
+    }
 }
