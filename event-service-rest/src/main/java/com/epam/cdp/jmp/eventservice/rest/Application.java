@@ -14,7 +14,7 @@ import java.util.Arrays;
 @SpringBootApplication
 @ComponentScan("com.epam.cdp.jmp.eventservice")
 @EntityScan("com.epam.cdp.jmp.eventservice.dto")
-@EnableJpaRepositories("com.epam.cdp.jmp.eventservice.impl.repository")
+@EnableJpaRepositories(basePackages = "com.epam.cdp.jmp.eventservice.impl.repository")
 public class Application {
 
     public static void main(String[] args) {
