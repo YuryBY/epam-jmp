@@ -6,5 +6,5 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/cucumber_scenarios")
-public class EventServiceControllerIT {
+public class EventServiceControllerIntegrationTest {
 }

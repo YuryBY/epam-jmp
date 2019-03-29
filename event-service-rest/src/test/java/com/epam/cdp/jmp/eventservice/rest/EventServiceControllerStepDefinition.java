@@ -2,10 +2,9 @@ package com.epam.cdp.jmp.eventservice.rest;
 
 import com.epam.cdp.jmp.eventservice.dto.Event;
 import com.epam.cdp.jmp.eventservice.dto.EventType;
+import com.epam.cdp.jmp.eventservice.rest.beans.CreateEventRequest;
 import com.epam.cdp.jmp.eventservice.rest.utils.LocalDateTimeToStringConverter;
-import cucumber.api.PendingException;
 import cucumber.api.Transform;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
@@ -20,6 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -31,8 +32,7 @@ public class EventServiceControllerStepDefinition {
     @LocalServerPort
     protected int port;
 
-//    @Resource
-//    private EventRepository eventRepository;
+//    private List<Event> events = new ArrayList<Event>();
 
     protected String getEventServiceHost() {
         return "http://localhost:" + port;
@@ -61,23 +61,47 @@ public class EventServiceControllerStepDefinition {
                             @Transform(LocalDateTimeToStringConverter.class) LocalDateTime dateTime) {
         System.out.println(url);
         Event event = new Event(title, place, speaker, eventType, dateTime);
-        HttpEntity<Event> request = new HttpEntity<>(event);
+//        events.add(event);
+        CreateEventRequest createEventRequest = new CreateEventRequest();
+        createEventRequest.setEvent(event);
+        HttpEntity<CreateEventRequest> request = new HttpEntity<CreateEventRequest>(createEventRequest);
         responseEntity = restTemplate.exchange(getEventServiceHost() + url, HttpMethod.POST, request, Event.class);
     }
 
-    @Then("^the client receives status code of \"([^\"]*)\" and response body containes eventId: \"([^\"]*)\"\\.$")
-    public void the_client_receives_status_code_of_and_response_body_containes_eventId(String arg1, String arg2) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    @Then("^the client receives status code of (\\d+) and response body containes eventId: (\\d+)\\.$")
+    public void validateStatusAndIdAfterCreate(int statusCode, int id) throws Throwable {
+        Assert.assertEquals(statusCode, responseEntity.getStatusCodeValue());
+        Assert.assertEquals(id, responseEntity.getBody().getEventId());
     }
 
-    @Then("^the client receives status code of (\\d{3})$")
-    public void validateStatusCode(int statusCode) {
+    @When("^the client calls GET \"([^\"]*)\" url with id (\\d+)$")
+    public void getById(String url) throws Throwable {
+        responseEntity = restTemplate.exchange(getEventServiceHost() + url, HttpMethod.GET, null, Event.class);
+    }
+
+    @Then("^the client receives status code of (\\d+)$")
+    public void validateStatusCodeAfterGet(int statusCode) throws Throwable {
         Assert.assertEquals(statusCode, responseEntity.getStatusCodeValue());
     }
 
-    @And("response body containes eventId: '(.+)'")
-    public void validateResponseBody(long id) {
-        Assert.assertEquals(1L, responseEntity.getBody().getEventId());
-    }
+//    @When("^the client calls DELETE \"([^\"]*)\"$")
+//    public void delete(String url) throws Throwable {
+//        System.out.println("!!!!!!!!!!!!");
+//        System.out.println(url);
+//        if (true)throw new Error("AHTUNG: "+url);
+//        HttpEntity<Integer> request = new HttpEntity<Integer>(1);
+//        responseEntity = restTemplate.exchange(getEventServiceHost() + url, HttpMethod.DELETE, request, Event.class);
+//    }
+
+//    @Then("^the client receives status code of (\\d+)$")
+//    public void validateStatusAfterCodeDelete(int statusCode) throws Throwable {
+//        Assert.assertEquals(statusCode, responseEntity.getStatusCodeValue());
+//    }
+
+//    @When("^the client calls POST \"([^\"]*)\" and Body contains Event with title: \"([^\"]*)\", place: \"([^\"]*)\", speaker: \"([^\"]*)\", eventType: \"([^\"]*)\", dateTime: \"([^\"]*)\"\\.$")
+//    public void getEventById(String url, int id) {
+//        CreateEventRequest createEventRequest = new CreateEventRequest();
+//        HttpEntity<CreateEventRequest> request = new HttpEntity<CreateEventRequest>(createEventRequest);
+//        responseEntity = restTemplate.exchange(getEventServiceHost() + url, HttpMethod.GET, request, Event.class);
+//    }
 }

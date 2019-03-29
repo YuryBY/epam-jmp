@@ -2,11 +2,14 @@ package com.epam.cdp.jmp.eventservice.rest.controller;
 
 import com.epam.cdp.jmp.eventservice.api.EventService;
 import com.epam.cdp.jmp.eventservice.dto.Event;
+import com.epam.cdp.jmp.eventservice.dto.EventType;
+import com.epam.cdp.jmp.eventservice.rest.beans.EventRequestFailure;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -18,6 +21,30 @@ import java.util.List;
 public class EventServiceControllerL2 {
     @Autowired
     private EventService eventService;
+
+    @RequestMapping(path = "/create", method = RequestMethod.POST, produces = "application/json")
+    @ApiOperation(response = Event.class, value = "Create new event")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = Event.class),
+            @ApiResponse(code = 500, message = "Internal Server Error")})
+    public @ResponseBody
+    ResponseEntity<?> createEvent(
+            @ApiParam("Title of the event") @PathVariable(name = "title") String title,
+            @ApiParam("Place of the event") @PathVariable(name = "place") String place,
+            @ApiParam("Speaker of the event") @PathVariable(name = "speaker") String speaker,
+            @ApiParam("Event type") @PathVariable(name = "eventType") EventType eventType,
+            @ApiParam("Date of the event") @PathVariable(name = "dateTime") LocalDateTime dateTime)
+    {
+        Event event = new Event(title, place, speaker, eventType, dateTime);
+        Event storedEvent = eventService.createEvent(event);
+        ResponseEntity responseEntity;
+        if (storedEvent != null) {
+            responseEntity = ResponseEntity.ok(storedEvent);
+        } else {
+            responseEntity = ResponseEntity.ok(new EventRequestFailure("Internal Server Error"));
+        }
+        return responseEntity;
+    }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(response = List.class, produces = "application/json", value = "Returns a list of events")
@@ -63,7 +90,7 @@ public class EventServiceControllerL2 {
             @ApiResponse(code = 204, message = "Not found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
     public @ResponseBody
-    ResponseEntity<?> getIvent(@ApiParam("Id of the event") @PathVariable(name = "id") Long id) {
+    ResponseEntity<?> getEvent(@ApiParam("Id of the event") @PathVariable(name = "id") Long id) {
         Event event = eventService.getEvent(id);
         ResponseEntity responseEntity;
         if (event != null) {
