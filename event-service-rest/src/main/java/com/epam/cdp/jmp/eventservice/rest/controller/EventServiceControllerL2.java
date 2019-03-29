@@ -6,6 +6,7 @@ import com.epam.cdp.jmp.eventservice.dto.EventType;
 import com.epam.cdp.jmp.eventservice.rest.beans.EventRequestFailure;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +30,12 @@ public class EventServiceControllerL2 {
             @ApiResponse(code = 500, message = "Internal Server Error")})
     public @ResponseBody
     ResponseEntity<?> createEvent(
-            @ApiParam("Title of the event") @PathVariable(name = "title") String title,
-            @ApiParam("Place of the event") @PathVariable(name = "place") String place,
-            @ApiParam("Speaker of the event") @PathVariable(name = "speaker") String speaker,
-            @ApiParam("Event type") @PathVariable(name = "eventType") EventType eventType,
-            @ApiParam("Date of the event") @PathVariable(name = "dateTime") LocalDateTime dateTime)
-    {
+            @ApiParam("Title of the event") @RequestParam(name = "title") String title,
+            @ApiParam("Place of the event") @RequestParam(name = "place") String place,
+            @ApiParam("Speaker of the event") @RequestParam(name = "speaker") String speaker,
+            @ApiParam("Event type") @RequestParam(name = "eventType") EventType eventType,
+            @ApiParam("Date of the event") @RequestParam(name = "dateTime")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime) {
         Event event = new Event(title, place, speaker, eventType, dateTime);
         Event storedEvent = eventService.createEvent(event);
         ResponseEntity responseEntity;
@@ -72,7 +73,6 @@ public class EventServiceControllerL2 {
             @ApiResponse(code = 500, message = "Internal Server Error")})
     public @ResponseBody
     ResponseEntity<?> getAllEventsByTitle(@ApiParam("Title of the event") @PathVariable(name = "title") String title) {
-//    ResponseEntity<?> getAllEventsByTitle(String title) {
         List<Event> allEvents = eventService.getAllEventsByTitle(title);
         ResponseEntity responseEntity;
         if (allEvents != null && !allEvents.isEmpty()) {

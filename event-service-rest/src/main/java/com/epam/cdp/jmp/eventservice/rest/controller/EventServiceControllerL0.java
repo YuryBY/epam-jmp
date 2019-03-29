@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,8 +32,8 @@ public class EventServiceControllerL0 {
             @ApiResponse(code = 200, message = "Success", response = Event.class),
             @ApiResponse(code = 200, message = "Internal Server Error", response = EventRequestFailure.class)})
     public @ResponseBody
-    ResponseEntity<?> createEvent(HttpEntity<CreateEventRequest> eventRequestHttpEntity) {
-        Event event = eventService.createEvent(eventRequestHttpEntity.getBody().getEvent());
+    ResponseEntity<?> createEvent(CreateEventRequest createEventRequest) {
+        Event event = eventService.createEvent(createEventRequest.getEvent());
         ResponseEntity responseEntity;
         if (event != null) {
             responseEntity = ResponseEntity.ok(event);
