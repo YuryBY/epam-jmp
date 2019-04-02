@@ -1,0 +1,45 @@
+FROM centos:7
+
+MAINTAINER Yury Bakhmutski <Yury_Bakhmutski@epam.com>
+
+#LABEL Remarks=”This is a dockerfile for event-service project based on Centos system”
+
+User root
+
+RUN yum -y update && \
+
+#yum -y install httpd && \
+
+yum clean all
+
+#RUN yum -y install httpd && \
+
+RUN yum list available \*openjdk\*
+#RUN yum -y install java-11-openjdk
+RUN yum install java-1.8.0-openjdk
+
+ARG SERVICE_LOCATION=/apps/jmp/docker/event-service
+
+RUN mkdir -p "$SERVICE_LOCATION"
+
+WORKDIR $SERVICE_LOCATION
+
+RUN cd $SERVICE_LOCATION
+
+ADD event-service-rest/target/event-service-rest-1.0-SNAPSHOT.jar $SERVICE_LOCATION
+
+ENTRYPOINT [java”, "-jar", "event-service-rest-1.0-SNAPSHOT.jar"]
+
+#COPY data/httpd.conf /etc/httpd/conf/httpd.conf
+
+#ADD data/html.tar.gz /var/www/html/
+
+#EXPOSE 80
+
+#ENV HOME /root
+
+#WORKDIR /root
+
+#ENTRYPOINT [“ping”]
+
+#CMD [“google.com”]

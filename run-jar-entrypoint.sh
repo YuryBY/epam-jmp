@@ -1,0 +1,1 @@
+java -jar event-service-rest-1.0-SNAPSHOT.jar

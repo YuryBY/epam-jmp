@@ -1,0 +1,1 @@
+docker push yuryby/event_service:v1.0
