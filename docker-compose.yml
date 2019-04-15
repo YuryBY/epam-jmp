@@ -1,8 +1,8 @@
 version: '2'
 services:
   event-service:
-    image: yuryby/event_service:v1.0
-    container_name: event-service
+    image: event_service:v2.0
+    container_name: event-service-v-2
     environment:
       - JAVA_OPTS=-Xms1024MB -Xms1536MB 
     restart: always

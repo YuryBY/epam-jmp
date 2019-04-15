@@ -1,6 +1,7 @@
 package com.epam.cdp.jmp.eventservice.rest.controller;
 
 import com.epam.cdp.jmp.eventservice.api.EventService;
+import com.epam.cdp.jmp.eventservice.dto.Address;
 import com.epam.cdp.jmp.eventservice.dto.Event;
 import com.epam.cdp.jmp.eventservice.dto.EventType;
 import com.epam.cdp.jmp.eventservice.rest.beans.EventRequestFailure;
@@ -31,12 +32,12 @@ public class EventServiceControllerL2 {
     public @ResponseBody
     ResponseEntity<?> createEvent(
             @ApiParam("Title of the event") @RequestParam(name = "title") String title,
-            @ApiParam("Place of the event") @RequestParam(name = "place") String place,
+            @ApiParam("Address of the event") @RequestParam(name = "address") Address address,
             @ApiParam("Speaker of the event") @RequestParam(name = "speaker") String speaker,
             @ApiParam("Event type") @RequestParam(name = "eventType") EventType eventType,
             @ApiParam("Date of the event") @RequestParam(name = "dateTime")
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime) {
-        Event event = new Event(title, place, speaker, eventType, dateTime);
+        Event event = new Event(title, address, speaker, eventType, dateTime);
         Event storedEvent = eventService.createEvent(event);
         ResponseEntity responseEntity;
         if (storedEvent != null) {

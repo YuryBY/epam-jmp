@@ -21,7 +21,7 @@ public class Event extends ResourceSupport {
 
     private String title;
 
-    private String place;
+    private Address address;
 
     private String speaker;
 
@@ -37,12 +37,12 @@ public class Event extends ResourceSupport {
 
     @JsonCreator
     public Event(@JsonProperty("title") String title,
-                 @JsonProperty("place") String place,
+                 @JsonProperty("address") Address address,
                  @JsonProperty("speaker") String speaker,
                  @JsonProperty("eventType") EventType eventType,
                  @JsonProperty("dateTime") LocalDateTime dateTime) {
         this.title = title;
-        this.place = place;
+        this.address = address;
         this.speaker = speaker;
         this.eventType = eventType;
         this.dateTime = dateTime;
@@ -53,7 +53,7 @@ public class Event extends ResourceSupport {
         return "Event{" +
                 "eventId=" + eventId +
                 ", title='" + title + '\'' +
-                ", place='" + place + '\'' +
+                ", place='" + address + '\'' +
                 ", speaker='" + speaker + '\'' +
                 ", eventType=" + eventType +
                 ", dateTime=" + dateTime +
