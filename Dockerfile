@@ -18,9 +18,9 @@ RUN mkdir -p "$SERVICE_LOCATION"
 WORKDIR $SERVICE_LOCATION
 RUN cd $SERVICE_LOCATION
 
-ADD event-service-rest/target/event-service-rest-1.0-SNAPSHOT.jar $SERVICE_LOCATION
+ADD event-service-rest/target/event-service-rest-2.0-SNAPSHOT.jar $SERVICE_LOCATION
 
-ENTRYPOINT ["java", "-jar", "event-service-rest-1.0-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "event-service-rest-2.0-SNAPSHOT.jar"]
 #ENTRYPOINT ["/run-jar-entrypoint.sh"]
 
 #COPY data/httpd.conf /etc/httpd/conf/httpd.conf

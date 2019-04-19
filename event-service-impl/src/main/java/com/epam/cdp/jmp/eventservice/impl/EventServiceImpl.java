@@ -13,8 +13,13 @@ import java.util.Optional;
 @Service
 public class EventServiceImpl implements EventService {
 
+
+    private final EventRepository eventRepository;
+
     @Autowired
-    private EventRepository eventRepository;
+    public EventServiceImpl(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
 
     @Override
     public Event createEvent(Event event) {

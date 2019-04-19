@@ -6,11 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -24,24 +28,25 @@ public class Event {
 //public class Event extends ResourceSupport {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
 //    private long eventId;
-    private ObjectId id;
+    private BigInteger id;
 
     private String title;
 
+    @Indexed(unique = true)
     private Address address;
 
     @DBRef
-    private String speaker;
+    private Speaker speaker;
 
     //    @Enumerated(EnumType.STRING)
     @Field("type")
     private EventType eventType;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @Field("date")
-    private LocalDateTime dateTime;
+////    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+//    @Field("date")
+//    private LocalDateTime dateTime;
 
 //    @JsonCreator
 //    public Event() {
@@ -63,41 +68,12 @@ public class Event {
     @JsonCreator
     public Event(String title,
                  Address address,
-                 String speaker,
-                 EventType eventType,
-                 LocalDateTime dateTime) {
+                 Speaker speaker,
+                 EventType eventType) {
         this.title = title;
         this.address = address;
         this.speaker = speaker;
         this.eventType = eventType;
-        this.dateTime = dateTime;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Event event = (Event) o;
-        return Objects.equals(title, event.title) &&
-                Objects.equals(address, event.address) &&
-                Objects.equals(speaker, event.speaker) &&
-                eventType == event.eventType &&
-                Objects.equals(dateTime, event.dateTime);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, address, speaker, eventType, dateTime);
-    }
-
-    @Override
-    public String toString() {
-        return "Event{" +
-                "title='" + title +
-                ", place='" + address + '\'' +
-                ", speaker='" + speaker + '\'' +
-                ", eventType=" + eventType +
-                ", dateTime=" + dateTime +
-                '}';
-    }
 }

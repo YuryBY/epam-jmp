@@ -6,7 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.math.BigInteger;
 import java.util.Objects;
 
@@ -15,10 +18,12 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
+@Document(collection = "speakers")
 public class Speaker {
     //    BigInteger id;
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @ApiModelProperty(hidden=true)
 //    private long speakerId;
     private BigInteger id;
 

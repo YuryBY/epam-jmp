@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.Objects;
 
@@ -14,7 +18,6 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 public class Address {
 
@@ -23,26 +26,50 @@ public class Address {
 ////    private long addressId;
 //    private ObjectId id;
 
-    private String city;
+    @Field("address")
+    private final String address;
 
-    private String street;
+//    @Field("Address: City")
+//    private String city;
+//
+//    @Field("Address: Street")
+//    private String street;
+//
+//    @Field("Address: Country")
+//    private String country;
 
-    private String country;
+    @Component
+    static class AddressToStringConverter implements Converter<Address, String> {
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Address address = (Address) o;
-        return Objects.equals(city, address.city) &&
-                Objects.equals(street, address.street) &&
-                Objects.equals(country, address.country);
+        @Override
+        public String convert(Address input) {
+            return input == null ? null : input.address;
+        }
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(city, street, country);
+    @Component
+    static class StringToAddressConverter implements Converter<String, Address> {
+
+        @Override
+        public Address convert(String input) {
+            return StringUtils.hasText(input) ? new Address(input) : null;
+        }
     }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Address address = (Address) o;
+//        return Objects.equals(city, address.city) &&
+//                Objects.equals(street, address.street) &&
+//                Objects.equals(country, address.country);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(city, street, country);
+//    }
 
     //    @JsonCreator
 //    public Address() {

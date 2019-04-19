@@ -4,7 +4,6 @@ import com.epam.cdp.jmp.eventservice.api.SpeakerService;
 import com.epam.cdp.jmp.eventservice.dto.Email;
 import com.epam.cdp.jmp.eventservice.dto.Event;
 import com.epam.cdp.jmp.eventservice.dto.Speaker;
-import com.epam.cdp.jmp.eventservice.rest.beans.EventRequestFailure;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,7 @@ import java.util.List;
         value = "event-service",
         description = "Speakers CRUD operations endpoint"
 )
-public class SpeakerServiceControllerL2 {
+public class SpeakerServiceController {
 
     @Autowired
     private SpeakerService speakerService;
@@ -40,7 +39,7 @@ public class SpeakerServiceControllerL2 {
         if (storedSpeaker != null) {
             responseEntity = ResponseEntity.ok(storedSpeaker);
         } else {
-            responseEntity = ResponseEntity.ok(new EventRequestFailure("Internal Server Error"));
+            responseEntity = ResponseEntity.noContent().build();
         }
         return responseEntity;
     }

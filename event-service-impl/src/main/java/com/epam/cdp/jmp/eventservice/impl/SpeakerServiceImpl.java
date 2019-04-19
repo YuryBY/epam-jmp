@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class SpeakerServiceImpl implements SpeakerService {
 
-//    @Autowired
+    @Autowired
     private SpeakerRepository speakerRepository;
 
     @Override
