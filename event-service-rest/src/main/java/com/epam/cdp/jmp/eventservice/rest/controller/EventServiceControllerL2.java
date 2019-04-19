@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -91,7 +92,7 @@ public class EventServiceControllerL2 {
             @ApiResponse(code = 204, message = "Not found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
     public @ResponseBody
-    ResponseEntity<?> getEvent(@ApiParam("Id of the event") @PathVariable(name = "id") Long id) {
+    ResponseEntity<?> getEvent(@ApiParam("Id of the event") @PathVariable(name = "id") BigInteger id) {
         Event event = eventService.getEvent(id);
         ResponseEntity responseEntity;
         if (event != null) {
@@ -110,7 +111,7 @@ public class EventServiceControllerL2 {
             @ApiResponse(code = 500, message = "Internal Server Error")})
     public @ResponseBody
         //TODO to improve delete method
-    ResponseEntity<?> deleteEvent(@ApiParam("Id of the event") @PathVariable(name = "id") Long id) {
+    ResponseEntity<?> deleteEvent(@ApiParam("Id of the event") @PathVariable(name = "id") BigInteger id) {
         ResponseEntity responseEntity;
         try {
             eventService.deleteEvent(id);

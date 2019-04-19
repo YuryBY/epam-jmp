@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -19,6 +20,7 @@ import java.util.List;
         description = "Speakers CRUD operations endpoint"
 )
 public class SpeakerServiceControllerL2 {
+
     @Autowired
     private SpeakerService speakerService;
 
@@ -86,7 +88,7 @@ public class SpeakerServiceControllerL2 {
             @ApiResponse(code = 204, message = "Not found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
     public @ResponseBody
-    ResponseEntity<?> getEvent(@ApiParam("Id of the speaker") @PathVariable(name = "id") Long id) {
+    ResponseEntity<?> getEvent(@ApiParam("Id of the speaker") @PathVariable(name = "id") BigInteger id) {
         Speaker speaker = speakerService.getSpeaker(id);
         ResponseEntity responseEntity;
         if (speaker != null) {
@@ -105,7 +107,7 @@ public class SpeakerServiceControllerL2 {
             @ApiResponse(code = 500, message = "Internal Server Error")})
     public @ResponseBody
         //TODO to improve delete method
-    ResponseEntity<?> deleteSpeaker(@ApiParam("Id of the speaker") @PathVariable(name = "id") Long id) {
+    ResponseEntity<?> deleteSpeaker(@ApiParam("Id of the speaker") @PathVariable(name = "id") BigInteger id) {
         ResponseEntity responseEntity;
         try {
             speakerService.deleteSpeaker(id);

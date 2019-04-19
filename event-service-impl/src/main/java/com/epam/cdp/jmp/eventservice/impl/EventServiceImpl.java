@@ -6,6 +6,7 @@ import com.epam.cdp.jmp.eventservice.impl.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event updateEvent(Long id, Event event) {
+    public Event updateEvent(BigInteger id, Event event) {
         return eventRepository.existsById(id) ? eventRepository.save(event) : null;
 //        eventRepository.
 //        Optional<Event> storedEvent = eventRepository.findById(id);
@@ -35,13 +36,13 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event getEvent(Long id) {
+    public Event getEvent(BigInteger id) {
         Optional<Event> event = eventRepository.findById(id);
         return event.orElse(null);
     }
 
     @Override
-    public void deleteEvent(Long id) {
+    public void deleteEvent(BigInteger id) {
         eventRepository.deleteById(id);
 //        Optional<Event> event = eventRepository.findById(id);
 //        Event result = null;

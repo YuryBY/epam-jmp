@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,7 +42,7 @@ public class EventServiceControllerL3 {
         if (allEvents != null && !allEvents.isEmpty()) {
             for (Event event : allEvents) {
                 URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(event.getId()).toUri();
-                event.add(new Link(location.toString()));
+//                event.add(new Link(location.toString()));
             }
             responseEntity = ResponseEntity.ok(allEvents);
         } else {
@@ -63,7 +64,7 @@ public class EventServiceControllerL3 {
         if (allEvents != null && !allEvents.isEmpty()) {
             for (Event event : allEvents) {
                 URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(event.getId()).toUri();
-                event.add(new Link(location.toString()));
+//                event.add(new Link(location.toString()));
             }
             responseEntity = ResponseEntity.ok(allEvents);
         } else {
@@ -79,12 +80,12 @@ public class EventServiceControllerL3 {
             @ApiResponse(code = 204, message = "Not found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
     public @ResponseBody
-    ResponseEntity<?> getIvent(@ApiParam("Id of the event") @PathVariable(name = "id") Long id) {
+    ResponseEntity<?> getIvent(@ApiParam("Id of the event") @PathVariable(name = "id") BigInteger id) {
         Event event = eventService.getEvent(id);
         ResponseEntity responseEntity;
         if (event != null) {
             URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(event.getId()).toUri();
-            event.add(new Link(location.toString()));
+//            event.add(new Link(location.toString()));
             responseEntity = ResponseEntity.ok(event);
         } else {
             responseEntity = ResponseEntity.noContent().build();

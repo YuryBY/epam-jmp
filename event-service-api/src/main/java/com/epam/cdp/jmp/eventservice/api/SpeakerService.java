@@ -2,17 +2,18 @@ package com.epam.cdp.jmp.eventservice.api;
 
 import com.epam.cdp.jmp.eventservice.dto.Speaker;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public interface SpeakerService {
 
     Speaker createSpeaker(Speaker speaker);
 
-    Speaker updateSpeaker(long id, Speaker speaker);
+    Speaker updateSpeaker(BigInteger id, Speaker speaker);
 
-    Speaker getSpeaker(long id);
+    Speaker getSpeaker(BigInteger id);
 
-    void deleteSpeaker(Long id);
+    void deleteSpeaker(BigInteger id);
 
     List<Speaker> getAllSpeakers();
 

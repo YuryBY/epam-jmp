@@ -1,4 +1,4 @@
-package com.epam.cdp.jmp.eventservice.rest;
+package com.epam.cdp.jmp.eventservice.rest.controller;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -7,14 +7,12 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.Arrays;
 
 @SpringBootApplication
-@ComponentScan("com.epam.cdp.jmp.eventservice")
+@ComponentScan("com.epam.cdp.jmp.eventservice.impl")
 @EntityScan("com.epam.cdp.jmp.eventservice.dto")
-@EnableJpaRepositories(basePackages = "com.epam.cdp.jmp.eventservice.impl.repository")
 public class Application {
 
     public static void main(String[] args) {

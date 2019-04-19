@@ -2,17 +2,18 @@ package com.epam.cdp.jmp.eventservice.api;
 
 import com.epam.cdp.jmp.eventservice.dto.Event;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public interface EventService {
 
     Event createEvent(Event event);
 
-    Event updateEvent(Long id, Event event);
+    Event updateEvent(BigInteger id, Event event);
 
-    Event getEvent(Long id);
+    Event getEvent(BigInteger id);
 
-    void deleteEvent(Long id);
+    void deleteEvent(BigInteger id);
 
     void deleteAllEvents();
 

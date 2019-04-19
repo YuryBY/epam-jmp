@@ -1,32 +1,61 @@
 package com.epam.cdp.jmp.eventservice.dto;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
+import java.util.Objects;
 
-@Entity
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
+
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address {
-    String city;
-    String street;
-    String country;
 
-    @JsonCreator
-    public Address() {
+//    @Id
+////    @GeneratedValue(strategy = GenerationType.AUTO)
+////    private long addressId;
+//    private ObjectId id;
+
+    private String city;
+
+    private String street;
+
+    private String country;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(city, address.city) &&
+                Objects.equals(street, address.street) &&
+                Objects.equals(country, address.country);
     }
 
-    @JsonCreator
-    public Address(@JsonProperty("city") String city,
-                   @JsonProperty("street") String street,
-                   @JsonProperty("country") String country) {
-        this.city = city;
-        this.street = street;
-        this.country = country;
+    @Override
+    public int hashCode() {
+        return Objects.hash(city, street, country);
     }
+
+    //    @JsonCreator
+//    public Address() {
+//    }
+//
+//    @JsonCreator
+//    public Address(@JsonProperty("city") String city,
+//                   @JsonProperty("street") String street,
+//                   @JsonProperty("country") String country) {
+//        this.city = city;
+//        this.street = street;
+//        this.country = country;
+//    }
 
 
 }
