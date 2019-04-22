@@ -5,6 +5,7 @@ import com.epam.cdp.jmp.eventservice.dto.Event;
 import com.epam.cdp.jmp.eventservice.rest.controller.api.EventServiceController;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,52 +23,24 @@ public class EventServiceControllerImpl implements EventServiceController {
     @Autowired
     private EventService eventService;
 
-    @PostMapping(path = "/create", produces = "application/json")
-    public ResponseEntity<?> createEvent(@RequestBody Event event) {
-        Event storedEvent = eventService.createEvent(event);
-        ResponseEntity responseEntity;
-        if (storedEvent != null) {
-            responseEntity = ResponseEntity.ok(storedEvent);
-        } else {
-            responseEntity = ResponseEntity.noContent().build();
-        }
-        return responseEntity;
+    @PostMapping(path = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Event createEvent(@RequestBody Event event) {
+        return eventService.createEvent(event);
     }
 
     @GetMapping(produces = "application/json")
-    public ResponseEntity<?> getAllEvents() {
-        List<Event> allEvents = eventService.getAllEvents();
-        ResponseEntity responseEntity;
-        if (allEvents != null && !allEvents.isEmpty()) {
-            responseEntity = ResponseEntity.ok(allEvents);
-        } else {
-            responseEntity = ResponseEntity.noContent().build();
-        }
-        return responseEntity;
+    public List<Event> getAllEvents() {
+        return eventService.getAllEvents();
     }
 
     @GetMapping(path = "/title/{title}", produces = "application/json")
-    public ResponseEntity<?> getAllEventsByTitle(@PathVariable(name = "title") String title) {
-        List<Event> allEvents = eventService.getAllEventsByTitle(title);
-        ResponseEntity responseEntity;
-        if (allEvents != null && !allEvents.isEmpty()) {
-            responseEntity = ResponseEntity.ok(allEvents);
-        } else {
-            responseEntity = ResponseEntity.noContent().build();
-        }
-        return responseEntity;
+    public List<Event> getAllEventsByTitle(@PathVariable(name = "title") String title) {
+        return eventService.getAllEventsByTitle(title);
     }
 
     @GetMapping(path = "/{id}", produces = "application/json")
-    public ResponseEntity<?> getEvent(@PathVariable(name = "id") BigInteger id) {
-        Event event = eventService.getEvent(id);
-        ResponseEntity responseEntity;
-        if (event != null) {
-            responseEntity = ResponseEntity.ok(event);
-        } else {
-            responseEntity = ResponseEntity.noContent().build();
-        }
-        return responseEntity;
+    public Event getEvent(@PathVariable(name = "id") BigInteger id) {
+        return eventService.getEvent(id);
     }
 
     @DeleteMapping(path = "/{id}", produces = "application/json")

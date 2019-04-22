@@ -1,5 +1,6 @@
 package com.epam.cdp.jmp.eventservice.api;
 
+import com.epam.cdp.jmp.eventservice.dto.Event;
 import com.epam.cdp.jmp.eventservice.dto.Speaker;
 
 import java.math.BigInteger;
@@ -16,5 +17,7 @@ public interface SpeakerService {
     void deleteSpeaker(BigInteger id);
 
     List<Speaker> getAllSpeakers();
+
+//    List<Event> getAllSpeakersByTitle(String title);
 
 }
