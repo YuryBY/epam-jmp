@@ -3,7 +3,12 @@ package com.epam.cdp.jmp.eventservice.impl;
 import com.epam.cdp.jmp.eventservice.api.EventService;
 import com.epam.cdp.jmp.eventservice.dto.Event;
 import com.epam.cdp.jmp.eventservice.impl.repository.EventRepository;
+import com.mongodb.MongoClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.TextCriteria;
+import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -27,8 +32,8 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event updateEvent(BigInteger id, Event event) {
-        return eventRepository.existsById(id) ? eventRepository.save(event) : null;
+    public Event updateEvent(Event event) {
+        return eventRepository.existsById(event.getId()) ? eventRepository.save(event) : null;
 //        eventRepository.
 //        Optional<Event> storedEvent = eventRepository.findById(id);
 //        Event result = null;
@@ -70,6 +75,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> getAllEventsByTitle(String title) {
-        return (List<Event>) eventRepository.findAll();
+        MongoOperations mongoOps = new MongoTemplate(new MongoClient(), MongoConfig.dbName);
+        return mongoOps.find(TextQuery.queryText(new TextCriteria().matchingAny(title)), Event.class);
     }
 }

@@ -19,7 +19,13 @@ public interface EventServiceController {
             @ApiResponse(code = 500, message = "Internal Server Error")})
     Event createEvent(@ApiParam("event itself") Event event);
 
-    @ApiOperation(response = List.class, produces = MediaType.APPLICATION_JSON_VALUE, value = "Returns a list of events")
+    @ApiOperation(response = Event.class, value = "Update existing event")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = Event.class),
+            @ApiResponse(code = 500, message = "Internal Server Error")})
+    Event updateEvent(@ApiParam("event to update") Event event);
+
+    @ApiOperation(response = List.class, produces = MediaType.APPLICATION_JSON_VALUE, value = "Returns a list of all events")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = List.class),
             @ApiResponse(code = 204, message = "Not found"),

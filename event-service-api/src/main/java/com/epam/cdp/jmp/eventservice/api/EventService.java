@@ -9,7 +9,7 @@ public interface EventService {
 
     Event createEvent(Event event);
 
-    Event updateEvent(BigInteger id, Event event);
+    Event updateEvent(Event event);
 
     Event getEvent(BigInteger id);
 

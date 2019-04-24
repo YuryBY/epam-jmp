@@ -1,7 +1,6 @@
 package com.epam.cdp.jmp.eventservice.impl;
 
 import com.epam.cdp.jmp.eventservice.api.SpeakerService;
-import com.epam.cdp.jmp.eventservice.dto.Event;
 import com.epam.cdp.jmp.eventservice.dto.Speaker;
 import com.epam.cdp.jmp.eventservice.impl.repository.SpeakerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,8 @@ public class SpeakerServiceImpl implements SpeakerService {
     }
 
     @Override
-    public Speaker updateSpeaker(BigInteger id, Speaker speaker) {
-        return speakerRepository.existsById(id) ? speakerRepository.save(speaker) : null;
+    public Speaker updateSpeaker(Speaker speaker) {
+        return speakerRepository.existsById(speaker.getId()) ? speakerRepository.save(speaker) : null;
     }
 
     @Override
@@ -42,9 +41,4 @@ public class SpeakerServiceImpl implements SpeakerService {
     public List<Speaker> getAllSpeakers() {
         return (List<Speaker>) speakerRepository.findAll();
     }
-
-//    @Override
-//    public List<Event> getAllEventsByTitle(String title) {
-//        return (List<Event>) speakerRepository.findAll()findAll();
-//    }
 }

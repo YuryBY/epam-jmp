@@ -23,27 +23,32 @@ public class EventServiceControllerImpl implements EventServiceController {
     @Autowired
     private EventService eventService;
 
-    @PostMapping(path = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public Event createEvent(@RequestBody Event event) {
         return eventService.createEvent(event);
     }
 
-    @GetMapping(produces = "application/json")
+    @PostMapping(path = "/update")
+    public Event updateEvent(@RequestBody Event event) {
+        return eventService.updateEvent(event);
+    }
+
+    @GetMapping
     public List<Event> getAllEvents() {
         return eventService.getAllEvents();
     }
 
-    @GetMapping(path = "/title/{title}", produces = "application/json")
+    @GetMapping(path = "/title/{title}")
     public List<Event> getAllEventsByTitle(@PathVariable(name = "title") String title) {
         return eventService.getAllEventsByTitle(title);
     }
 
-    @GetMapping(path = "/{id}", produces = "application/json")
+    @GetMapping(path = "/{id}")
     public Event getEvent(@PathVariable(name = "id") BigInteger id) {
         return eventService.getEvent(id);
     }
 
-    @DeleteMapping(path = "/{id}", produces = "application/json")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteEvent(@PathVariable(name = "id") BigInteger id) {
         ResponseEntity responseEntity;
         try {

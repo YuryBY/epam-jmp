@@ -6,5 +6,5 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @Configuration
 @EnableMongoRepositories
 public class MongoConfig {
-
+    public static final String dbName = "events";
 }

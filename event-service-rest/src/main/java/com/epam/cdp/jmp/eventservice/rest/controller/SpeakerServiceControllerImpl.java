@@ -27,12 +27,17 @@ public class SpeakerServiceControllerImpl implements SpeakerServiceController {
         return speakerService.createSpeaker(speaker);
     }
 
-    @GetMapping(produces = "application/json")
+    @PostMapping(path = "/update")
+    public Speaker updateSpeaker(@RequestBody Speaker speaker) {
+        return speakerService.updateSpeaker(speaker);
+    }
+
+    @GetMapping
     public List<Speaker> getAllSpeakers() {
         return speakerService.getAllSpeakers();
     }
 
-    @GetMapping(path = "/{id}", produces = "application/json")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<?> getSpeaker(@PathVariable(name = "id") BigInteger id) {
         Speaker speaker = speakerService.getSpeaker(id);
         ResponseEntity responseEntity;
@@ -44,7 +49,7 @@ public class SpeakerServiceControllerImpl implements SpeakerServiceController {
         return responseEntity;
     }
 
-    @DeleteMapping(path = "/{id}", produces = "application/json")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteSpeaker(@PathVariable(name = "id") BigInteger id) {
         ResponseEntity responseEntity;
         try {

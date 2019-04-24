@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -22,6 +23,7 @@ public class Event {
 
     private BigInteger id;
 
+    @TextIndexed
     private String title;
 
     private Address address;
@@ -29,11 +31,10 @@ public class Event {
     @DBRef
     private Speaker speaker;
 
-    //    @Enumerated(EnumType.STRING)
     @Field("type")
     private EventType eventType;
 
-    //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Field("date")
     private LocalDateTime dateTime;
 

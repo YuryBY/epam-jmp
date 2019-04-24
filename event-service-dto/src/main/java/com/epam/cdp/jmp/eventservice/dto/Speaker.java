@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigInteger;
@@ -24,7 +23,6 @@ public class Speaker {
 
     private String lastName;
 
-    @Indexed(unique = true)
     private Email email;
 
     @JsonCreator
